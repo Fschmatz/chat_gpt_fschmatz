@@ -1,0 +1,32 @@
+name: chat_gpt_fschmatz
+description: Flutter project.
+publish_to: 'none'
+
+version: 0.0.5
+
+environment:
+  sdk: '>=2.19.6 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  path_provider:
+  provider:
+  shared_preferences:
+  url_launcher:
+  http:
+  fluttertoast:
+  easy_dynamic_theme:
+  sqflite:
+  jiffy:
+  share:
+  chat_gpt_flutter: ^1.0.9
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
