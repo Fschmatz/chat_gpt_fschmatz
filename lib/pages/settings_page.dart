@@ -12,7 +12,6 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-
   _launchGithub() {
     launchUrl(
       Uri.parse(AppDetails.repositoryLink),
@@ -86,7 +85,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
             ListTile(
               onTap: () {
-               // _launchGithub();
+                _launchGithub();
               },
               leading: const Icon(Icons.open_in_new_outlined),
               title: const Text("View Source Code on GitHub",

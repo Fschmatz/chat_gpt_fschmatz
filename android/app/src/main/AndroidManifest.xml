@@ -2,7 +2,7 @@
     package="com.fschmatz.chat_gpt_fschmatz">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="chat_gpt_fschmatz"
+        android:label="ChatGPT Fschmatz"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
