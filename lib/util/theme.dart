@@ -77,8 +77,8 @@ ThemeData dark = ThemeData(
       secondary: Color(0xFFEFADFC),
     ),
     cardTheme: const CardTheme(
-      surfaceTintColor: Color(0xFF232127),
-      color: Color(0xFF232127),
+      surfaceTintColor: Color(0xFF343038),
+      color: Color(0xFF343038),
     ),
     appBarTheme: const AppBarTheme(
       surfaceTintColor: Color(0xFF1C1B1F),
@@ -97,26 +97,26 @@ ThemeData dark = ThemeData(
         ),
         iconColor: const Color(0xFFE2E2E9)),
     inputDecorationTheme: InputDecorationTheme(
-        fillColor: const Color(0xFF2D2A2F),
+        fillColor: const Color(0xFF343038),
         filled: true,
         focusColor: const Color(0xFFEFADFC),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Color(0xFFEFADFC),
           ),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(50),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Color(0xFF454349),
           ),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(50),
         ),
         border: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Color(0xFF454349),
           ),
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(50),
         )),
     bottomSheetTheme:
         const BottomSheetThemeData(modalBackgroundColor: Color(0xFF1C1B1F)),

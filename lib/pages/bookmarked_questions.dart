@@ -57,75 +57,86 @@ class _BookmarkedQuestionsState extends State<BookmarkedQuestions> {
         duration: const Duration(milliseconds: 600),
         child: loadingHistory
             ? const Center(child: CircularProgressIndicator())
-            : ListView.separated(
-                itemCount: questions.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        ListTile(
-                          contentPadding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-                          title: Text(questions[index]['question']),
-                          onTap: () {
-                            Clipboard.setData(ClipboardData(
-                                text: questions[index]['question']));
-                          },
-                        ),
-                        Divider(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          thickness: 2,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 0, 8, 2),
-                          child: Column(
-                            children: [
-                              ListTile(
-                                title: Text(questions[index]['answer']),
-                                onTap: () {
-                                  Clipboard.setData(ClipboardData(
-                                      text: questions[index]['answer']));
-                                },
-                                contentPadding:
-                                    const EdgeInsets.fromLTRB(16, 8, 16, 6),
-                                tileColor: Theme.of(context)
-                                    .inputDecorationTheme
-                                    .fillColor,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
+            : ListView(
+                children: [
+                  ListView.separated(
+                    itemCount: questions.length,
+                    shrinkWrap: true,
+                    physics: const ScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return Card(
+                        margin: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            ListTile(
+                              contentPadding:
+                                  const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                              title: SelectableText(
+                                  questions[index]['question'],
+                                  style: const TextStyle(fontSize: 14)),
+                            ),
+                            Divider(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              thickness: 3,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 2),
+                              child: Column(
                                 children: [
-                                  IconButton(
-                                      icon: const Icon(
-                                        Icons.delete_outline,
-                                      ),
-                                      onPressed: () {
-                                        _deleteQuestion(questions[index]['id']);
-                                      }),
-                                  const SizedBox(
-                                    width: 5,
+                                  ListTile(
+                                    title: SelectableText(
+                                      questions[index]['answer'],
+                                      style: const TextStyle(fontSize: 14),
+                                    ),
+                                    contentPadding:
+                                        const EdgeInsets.fromLTRB(16, 8, 16, 6),
+                                    tileColor: Theme.of(context)
+                                        .scaffoldBackgroundColor,
                                   ),
-                                  IconButton(
-                                      icon: const Icon(
-                                        Icons.share_outlined,
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      IconButton(
+                                          icon: const Icon(
+                                            Icons.delete_outline,
+                                            size: 20,
+                                          ),
+                                          onPressed: () {
+                                            _deleteQuestion(
+                                                questions[index]['id']);
+                                          }),
+                                      const SizedBox(
+                                        width: 5,
                                       ),
-                                      onPressed: () {
-                                        _shareQuestion(
-                                            questions[index]['question'],//answer
-                                            questions[index]['answer']);
-                                      }),
+                                      IconButton(
+                                          icon: const Icon(
+                                            Icons.share_outlined,
+                                            size: 20,
+                                          ),
+                                          onPressed: () {
+                                            _shareQuestion(
+                                                questions[index]
+                                                    ['question'], //answer
+                                                questions[index]['answer']);
+                                          }),
+                                    ],
+                                  ),
                                 ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
+                      );
+                    },
+                    separatorBuilder: (context, index) => const SizedBox(
+                      height: 12,
                     ),
-                  );
-                },
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 8,
-                ),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  )
+                ],
               ),
       ),
     );

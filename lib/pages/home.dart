@@ -151,27 +151,27 @@ class _HomeState extends State<Home> {
           children: [
             Expanded(
               child: ListView.separated(
+                shrinkWrap: true,
+                reverse: true,
+                physics: const ScrollPhysics(),
                 itemCount: questionAnswers.length,
                 itemBuilder: (context, index) {
                   final questionAnswer = questionAnswers[index];
                   final answer = questionAnswer.answer.toString().trim();
 
                   return Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         ListTile(
                           contentPadding:
                               const EdgeInsets.fromLTRB(16, 8, 16, 0),
-                          title: Text(questionAnswer.question),
-                          onTap: () {
-                            Clipboard.setData(
-                                ClipboardData(text: questionAnswer.question));
-                          },
+                          title: SelectableText(questionAnswer.question,style: const TextStyle(fontSize: 14)),
                         ),
                         Divider(
                           color: Theme.of(context).scaffoldBackgroundColor,
-                          thickness: 2,
+                          thickness: 3,
                         ),
                         if (answer.isEmpty && loading)
                           const Center(child: SizedBox())
@@ -181,16 +181,10 @@ class _HomeState extends State<Home> {
                             child: Column(
                               children: [
                                 ListTile(
-                                  title: Text(answer),
-                                  onTap: () {
-                                    Clipboard.setData(
-                                        ClipboardData(text: answer));
-                                  },
+                                  title: SelectableText(answer,style: const TextStyle(fontSize: 14)),
                                   contentPadding:
                                       const EdgeInsets.fromLTRB(16, 8, 16, 6),
-                                  tileColor: Theme.of(context)
-                                      .inputDecorationTheme
-                                      .fillColor,
+                                  tileColor: Theme.of(context).scaffoldBackgroundColor,
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
@@ -198,6 +192,7 @@ class _HomeState extends State<Home> {
                                     IconButton(
                                         icon: const Icon(
                                           Icons.bookmark_outline,
+                                          size: 20,
                                         ),
                                         onPressed: () {
                                           _saveQuestion(
@@ -214,6 +209,7 @@ class _HomeState extends State<Home> {
                                     IconButton(
                                         icon: const Icon(
                                           Icons.share_outlined,
+                                          size: 20,
                                         ),
                                         onPressed: () {
                                           _shareQuestion(
@@ -234,20 +230,21 @@ class _HomeState extends State<Home> {
                   );
                 },
                 separatorBuilder: (context, index) => const SizedBox(
-                  height: 8,
+                  height: 12,
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
+              padding: const EdgeInsets.all(16),
               child: TextField(
                 minLines: 1,
                 maxLines: 10,
-                maxLength: 2000,
+                maxLength: 1000,
                 maxLengthEnforcement: MaxLengthEnforcement.enforced,
                 controller: messageText,
                 textCapitalization: TextCapitalization.sentences,
                 decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
                     counterText: "",
                     hintText: "Message",
                     focusColor: Theme.of(context).colorScheme.primary,
@@ -259,6 +256,7 @@ class _HomeState extends State<Home> {
                         ))),
               ),
             ),
+
           ],
         ),
       ),
