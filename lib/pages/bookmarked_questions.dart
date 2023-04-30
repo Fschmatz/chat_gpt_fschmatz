@@ -74,8 +74,10 @@ class _BookmarkedQuestionsState extends State<BookmarkedQuestions> {
                               nip: BubbleNip.rightTop,
                               padding: const BubbleEdges.all(12),
                               margin: const BubbleEdges.only(top: 12),
-                              color:
-                                  Theme.of(context).cardTheme.surfaceTintColor,
+                              elevation: 0,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
                               child: SelectableText(
                                   questions[index]['question'],
                                   style: const TextStyle(fontSize: 14)),
@@ -90,10 +92,10 @@ class _BookmarkedQuestionsState extends State<BookmarkedQuestions> {
                                   margin: const BubbleEdges.only(top: 12),
                                   padding: const BubbleEdges.all(12),
                                   nip: BubbleNip.leftBottom,
+                                  elevation: 0,
                                   color: Theme.of(context)
-                                      .cardTheme
-                                      .surfaceTintColor!
-                                      .withOpacity(0.4),
+                                      .colorScheme
+                                      .secondaryContainer,
                                   child: SelectableText(
                                       questions[index]['answer'],
                                       style: const TextStyle(fontSize: 14)),

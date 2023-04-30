@@ -6,16 +6,18 @@ ThemeData light = ThemeData(
       titleMedium: TextStyle(fontWeight: FontWeight.w400),
     ),
     brightness: Brightness.light,
-    primaryColor: const Color(0xFFFFFBFE),
-    scaffoldBackgroundColor: const Color(0xFFFFFBFE),
-    colorScheme: ColorScheme.light(
-      primary: Colors.purple.shade400,
-      onSecondary: const Color(0xFF050505),
-      secondary: Colors.purple.shade400,
+    primaryColor: const Color(0xFFFFFBFF),
+    scaffoldBackgroundColor: const Color(0xFFFFFBFF),
+    colorScheme: const ColorScheme.light(
+      primary: Color(0xFF984066),
+      onSecondary: Color(0xFF050505),
+      secondary: Color(0xFF984066),
+        primaryContainer: Color(0xFFFFD9E4),
+        secondaryContainer: Color(0xFFE3C0C9)
     ),
     appBarTheme: const AppBarTheme(
-      surfaceTintColor: Color(0xFFFFFBFE),
-      color: Color(0xFFFFFBFE),
+      surfaceTintColor: Color(0xFFFFFBFF),
+      color: Color(0xFFFFFBFF),
     ),
     listTileTheme: ListTileThemeData(
         shape: RoundedRectangleBorder(
@@ -23,8 +25,8 @@ ThemeData light = ThemeData(
         ),
         iconColor: const Color(0xFF454546)),
     cardTheme: const CardTheme(
-      surfaceTintColor: Color(0xFFF0EAF4),
-      color: Color(0xFFF0EAF4),
+      surfaceTintColor: Color(0xFFFFFBFF),
+      color: Color(0xFFFFFBFF),
     ),
     dialogTheme: const DialogTheme(
       surfaceTintColor: Color(0xFFFFFBFE),
@@ -32,34 +34,36 @@ ThemeData light = ThemeData(
     ),
     inputDecorationTheme: InputDecorationTheme(
         fillColor: const Color(0xFFF3EDF7),
-        filled: true,
-        focusColor: Colors.purple.shade300,
+        focusColor: const Color(0xFF984066),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.purple.shade300,
+          borderSide: const BorderSide(
+            color: Color(0xFF984066),
           ),
           borderRadius: BorderRadius.circular(16),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Color(0xFFE2E2E9),
+            color: Color(0xFFE6E0E4),
           ),
           borderRadius: BorderRadius.circular(16),
         ),
         border: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Color(0xFFE2E2E9),
+            color: Color(0xFFE6E0E4),
           ),
           borderRadius: BorderRadius.circular(16),
         )),
     popupMenuTheme: const PopupMenuThemeData(
-      color: Color(0xFFE9E5E9),
+      color: Color(0xFFFFFBFF),
+    ),
+    dividerTheme: const DividerThemeData(
+      color: Color(0xFFF6F2F6),
     ),
     bottomSheetTheme:
-        const BottomSheetThemeData(modalBackgroundColor: Color(0xFFF4F0F4)),
-    navigationBarTheme: NavigationBarThemeData(
-      backgroundColor: const Color(0xFFFFFBFE),
-      indicatorColor: Colors.purple.shade300,
+        const BottomSheetThemeData(modalBackgroundColor: Color(0xFFFFFBFF)),
+    navigationBarTheme: const NavigationBarThemeData(
+      backgroundColor: Color(0xFFFFFBFF),
+      indicatorColor: Color(0xFF984066),
     ));
 
 ThemeData dark = ThemeData(
@@ -68,28 +72,30 @@ ThemeData dark = ThemeData(
       titleMedium: TextStyle(fontWeight: FontWeight.w400),
     ),
     brightness: Brightness.dark,
-    primaryColor: const Color(0xFF1C1B1F),
-    scaffoldBackgroundColor: const Color(0xFF1C1B1F),
+    primaryColor: const Color(0xFF1F1A1D),
+    scaffoldBackgroundColor: const Color(0xFF1F1A1D),
     colorScheme: const ColorScheme.dark(
-      primary: Color(0xFFEFADFC),
-      onPrimary: Color(0xFF4D155F),
+      primary: Color(0xFFFFADE0),
+      onPrimary: Color(0xFF600D41),
       onSecondary: Color(0xFFCACACA),
-      secondary: Color(0xFFEFADFC),
+      secondary: Color(0xFFFFADE0),
+      primaryContainer: Color(0xFF57404D),
+      secondaryContainer: Color(0xFF31262D)
     ),
     cardTheme: const CardTheme(
       surfaceTintColor: Color(0xFF343038),
       color: Color(0xFF343038),
     ),
     appBarTheme: const AppBarTheme(
-      surfaceTintColor: Color(0xFF1C1B1F),
-      color: Color(0xFF1C1B1F),
+      surfaceTintColor: Color(0xFF1F1A1D),
+      color: Color(0xFF1F1A1D),
     ),
     dialogTheme: const DialogTheme(
-      surfaceTintColor: Color(0xFF29282A),
-      backgroundColor: Color(0xFF29282A),
+      surfaceTintColor: Color(0xFF31262D),
+      backgroundColor: Color(0xFF31262D),
     ),
     popupMenuTheme: const PopupMenuThemeData(
-      color: Color(0xFF29282A),
+      color: Color(0xFF31262D),
     ),
     listTileTheme: ListTileThemeData(
         shape: RoundedRectangleBorder(
@@ -99,31 +105,31 @@ ThemeData dark = ThemeData(
     inputDecorationTheme: InputDecorationTheme(
         fillColor: const Color(0xFF343038),
        // filled: true,
-        focusColor: const Color(0xFFEFADFC),
+        focusColor: const Color(0xFFFFADE0),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Color(0xFFEFADFC),
+            color: Color(0xFFFFADE0),
           ),
           borderRadius: BorderRadius.circular(12),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Color(0xFF454349),
+            color: Color(0xFF464044),
           ),
           borderRadius: BorderRadius.circular(12),
         ),
         border: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Color(0xFF454349),
+            color: Color(0xFF464044),
           ),
           borderRadius: BorderRadius.circular(12),
         )),
     dividerTheme: const DividerThemeData(
-      color: Color(0xFF353339),
+      color: Color(0xFF363034),
     ),
     bottomSheetTheme:
-        const BottomSheetThemeData(modalBackgroundColor: Color(0xFF1C1B1F)),
+        const BottomSheetThemeData(modalBackgroundColor: Color(0xFF1F1A1D)),
     navigationBarTheme: const NavigationBarThemeData(
-      backgroundColor: Color(0xFF1C1B1F),
-      indicatorColor: Color(0xFF672f77),
+      backgroundColor: Color(0xFF1F1A1D),
+      indicatorColor: Color(0xFF600D41),
     ));

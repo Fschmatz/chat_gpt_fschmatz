@@ -29,7 +29,8 @@ class _HomeState extends State<Home> {
   bool loading = false;
   final List<QuestionAnswer> questionAnswers = [];
   StreamSubscription<StreamCompletionResponse>? streamSubscription;
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
+
 
   @override
   void initState() {
@@ -80,6 +81,8 @@ class _HomeState extends State<Home> {
             if (event.streamMessageEnd) {
               streamSubscription?.cancel();
             } else {
+              _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+
               return questionAnswers.last.answer.write(
                 event.choices?.first.delta?.content,
               );
@@ -117,8 +120,7 @@ class _HomeState extends State<Home> {
   void sendActions() {
     _sendMessage();
     loseFocus();
-
-     _scrollController.jumpTo(_scrollController.position.maxScrollExtent + 200);
+     //_scrollController.jumpTo(_scrollController.position.maxScrollExtent + 200);
   }
 
   @override
@@ -177,7 +179,10 @@ class _HomeState extends State<Home> {
                           nip: BubbleNip.rightTop,
                           padding: const BubbleEdges.all(12),
                           margin: const BubbleEdges.only(top: 12),
-                          color: Theme.of(context).cardTheme.surfaceTintColor,
+                          elevation: 0,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .primaryContainer,
                           child: SelectableText(questionAnswer.question,
                               style: const TextStyle(fontSize: 14)),
                         ),
@@ -193,10 +198,10 @@ class _HomeState extends State<Home> {
                                 margin: const BubbleEdges.only(top: 12),
                                 padding: const BubbleEdges.all(12),
                                 nip: BubbleNip.leftBottom,
+                                elevation: 0,
                                 color: Theme.of(context)
-                                    .cardTheme
-                                    .surfaceTintColor!
-                                    .withOpacity(0.4),
+                                    .colorScheme
+                                    .secondaryContainer,
                                 child: SelectableText(answer,
                                     style: const TextStyle(fontSize: 14)),
                               ),
