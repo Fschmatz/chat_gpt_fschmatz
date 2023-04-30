@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'package:bubble/bubble.dart';
 import 'package:chat_gpt_fschmatz/pages/settings_page.dart';
+import 'package:chat_gpt_fschmatz/widgets/question_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share/share.dart';
 import '../db/question_controller.dart';
 import '../db/question_dao.dart';
 import '../util/app_details.dart';
+import '../widgets/answer_bubble.dart';
 
 class BookmarkedQuestions extends StatefulWidget {
   const BookmarkedQuestions({Key? key}) : super(key: key);
@@ -68,39 +70,11 @@ class _BookmarkedQuestionsState extends State<BookmarkedQuestions> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 8, 10, 0),
-                            child: Bubble(
-                              nip: BubbleNip.rightTop,
-                              padding: const BubbleEdges.all(12),
-                              margin: const BubbleEdges.only(top: 12),
-                              elevation: 0,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .primaryContainer,
-                              child: SelectableText(
-                                  questions[index]['question'],
-                                  style: const TextStyle(fontSize: 14)),
-                            ),
-                          ),
+                          QuestionBubble(
+                              question: questions[index]['question']),
                           Column(
                             children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10, 5, 10, 0),
-                                child: Bubble(
-                                  margin: const BubbleEdges.only(top: 12),
-                                  padding: const BubbleEdges.all(12),
-                                  nip: BubbleNip.leftBottom,
-                                  elevation: 0,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .secondaryContainer,
-                                  child: SelectableText(
-                                      questions[index]['answer'],
-                                      style: const TextStyle(fontSize: 14)),
-                                ),
-                              ),
+                              AnswerBubble(answer: questions[index]['answer']),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
@@ -122,8 +96,7 @@ class _BookmarkedQuestionsState extends State<BookmarkedQuestions> {
                                       ),
                                       onPressed: () {
                                         _shareQuestion(
-                                            questions[index]
-                                                ['question'], //answer
+                                            questions[index]['question'],
                                             questions[index]['answer']);
                                       }),
                                   const SizedBox(

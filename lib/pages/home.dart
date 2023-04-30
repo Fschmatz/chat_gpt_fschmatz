@@ -12,6 +12,8 @@ import 'package:share/share.dart';
 import '../classes/question_answer.dart';
 import '../db/question_controller.dart';
 import '../util/api_key.dart';
+import '../widgets/answer_bubble.dart';
+import '../widgets/question_bubble.dart';
 import 'bookmarked_questions.dart';
 
 class Home extends StatefulWidget {
@@ -31,7 +33,6 @@ class _HomeState extends State<Home> {
   StreamSubscription<StreamCompletionResponse>? streamSubscription;
   final ScrollController _scrollController = ScrollController();
 
-
   @override
   void initState() {
     super.initState();
@@ -50,6 +51,7 @@ class _HomeState extends State<Home> {
       setState(() {
         messageText.clear();
         loading = true;
+
         questionAnswers.add(
           QuestionAnswer(
             question: question,
@@ -81,7 +83,8 @@ class _HomeState extends State<Home> {
             if (event.streamMessageEnd) {
               streamSubscription?.cancel();
             } else {
-              _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+              _scrollController
+                  .jumpTo(_scrollController.position.maxScrollExtent);
 
               return questionAnswers.last.answer.write(
                 event.choices?.first.delta?.content,
@@ -120,7 +123,6 @@ class _HomeState extends State<Home> {
   void sendActions() {
     _sendMessage();
     loseFocus();
-     //_scrollController.jumpTo(_scrollController.position.maxScrollExtent + 200);
   }
 
   @override
@@ -162,9 +164,8 @@ class _HomeState extends State<Home> {
           children: [
             Expanded(
               child: ListView.separated(
-                shrinkWrap: true,
-               // reverse: true,
                 controller: _scrollController,
+                shrinkWrap: true,
                 itemCount: questionAnswers.length,
                 itemBuilder: (context, index) {
                   final questionAnswer = questionAnswers[index];
@@ -173,39 +174,16 @@ class _HomeState extends State<Home> {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 8, 10, 0),
-                        child: Bubble(
-                          nip: BubbleNip.rightTop,
-                          padding: const BubbleEdges.all(12),
-                          margin: const BubbleEdges.only(top: 12),
-                          elevation: 0,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .primaryContainer,
-                          child: SelectableText(questionAnswer.question,
-                              style: const TextStyle(fontSize: 14)),
-                        ),
-                      ),
+                      QuestionBubble(question: questionAnswer.question),
                       if (answer.isEmpty && loading)
-                        const Center(child: SizedBox(height: 200,))
+                        const Center(
+                            child: SizedBox(
+                          height: 50,
+                        ))
                       else
                         Column(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
-                              child: Bubble(
-                                margin: const BubbleEdges.only(top: 12),
-                                padding: const BubbleEdges.all(12),
-                                nip: BubbleNip.leftBottom,
-                                elevation: 0,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .secondaryContainer,
-                                child: SelectableText(answer,
-                                    style: const TextStyle(fontSize: 14)),
-                              ),
-                            ),
+                            AnswerBubble(answer: answer),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [

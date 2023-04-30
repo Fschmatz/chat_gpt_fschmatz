@@ -1,11 +1,11 @@
 class AppDetails{
 
-  static String appVersion = "1.2.2";
+  static String appVersion = "1.2.3";
   static String appName = "ChatGPT Fschmatz";
   static String repositoryLink = "https://github.com/Fschmatz/chat_gpt_fschmatz";
 
   static String changelogs = '''
-1.2.2
+1.2.3
 - Bug fixes
 - UI changes
 - Send with enter

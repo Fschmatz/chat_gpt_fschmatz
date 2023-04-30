@@ -9,12 +9,11 @@ ThemeData light = ThemeData(
     primaryColor: const Color(0xFFFFFBFF),
     scaffoldBackgroundColor: const Color(0xFFFFFBFF),
     colorScheme: const ColorScheme.light(
-      primary: Color(0xFF984066),
-      onSecondary: Color(0xFF050505),
-      secondary: Color(0xFF984066),
-        primaryContainer: Color(0xFFFFD9E4),
-        secondaryContainer: Color(0xFFE3C0C9)
-    ),
+        primary: Color(0xFF984066),
+        onSecondary: Color(0xFF050505),
+        secondary: Color(0xFF984066),
+        primaryContainer: Color(0xFFF5A4BC),
+        secondaryContainer: Color(0xFFFFE2E7)),
     appBarTheme: const AppBarTheme(
       surfaceTintColor: Color(0xFFFFFBFF),
       color: Color(0xFFFFFBFF),
@@ -33,7 +32,8 @@ ThemeData light = ThemeData(
       backgroundColor: Color(0xFFFFFBFE),
     ),
     inputDecorationTheme: InputDecorationTheme(
-        fillColor: const Color(0xFFF3EDF7),
+        fillColor: const Color(0xFFF6EDF4),
+        filled: true,
         focusColor: const Color(0xFF984066),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
@@ -43,13 +43,13 @@ ThemeData light = ThemeData(
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Color(0xFFE6E0E4),
+            color: Color(0xFFF6EDF4),
           ),
           borderRadius: BorderRadius.circular(16),
         ),
         border: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Color(0xFFE6E0E4),
+            color: Color(0xFFF6EDF4),
           ),
           borderRadius: BorderRadius.circular(16),
         )),
@@ -75,13 +75,12 @@ ThemeData dark = ThemeData(
     primaryColor: const Color(0xFF1F1A1D),
     scaffoldBackgroundColor: const Color(0xFF1F1A1D),
     colorScheme: const ColorScheme.dark(
-      primary: Color(0xFFFFADE0),
-      onPrimary: Color(0xFF600D41),
-      onSecondary: Color(0xFFCACACA),
-      secondary: Color(0xFFFFADE0),
-      primaryContainer: Color(0xFF57404D),
-      secondaryContainer: Color(0xFF31262D)
-    ),
+        primary: Color(0xFFFFADE0),
+        onPrimary: Color(0xFF600D41),
+        onSecondary: Color(0xFFCACACA),
+        secondary: Color(0xFFFFADE0),
+        primaryContainer: Color(0xFF57404D),
+        secondaryContainer: Color(0xFF31262D)),
     cardTheme: const CardTheme(
       surfaceTintColor: Color(0xFF343038),
       color: Color(0xFF343038),
@@ -103,8 +102,8 @@ ThemeData dark = ThemeData(
         ),
         iconColor: const Color(0xFFE2E2E9)),
     inputDecorationTheme: InputDecorationTheme(
-        fillColor: const Color(0xFF343038),
-       // filled: true,
+        fillColor: const Color(0xFF373034),
+        filled: true,
         focusColor: const Color(0xFFFFADE0),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
@@ -114,13 +113,13 @@ ThemeData dark = ThemeData(
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Color(0xFF464044),
+            color: Color(0xFF373034),
           ),
           borderRadius: BorderRadius.circular(12),
         ),
         border: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Color(0xFF464044),
+            color: Color(0xFF373034),
           ),
           borderRadius: BorderRadius.circular(12),
         )),
