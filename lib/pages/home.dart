@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:bubble/bubble.dart';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
 import 'package:chat_gpt_fschmatz/pages/settings_page.dart';
 import 'package:chat_gpt_fschmatz/util/app_details.dart';
@@ -28,6 +29,7 @@ class _HomeState extends State<Home> {
   bool loading = false;
   final List<QuestionAnswer> questionAnswers = [];
   StreamSubscription<StreamCompletionResponse>? streamSubscription;
+  ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -112,6 +114,13 @@ class _HomeState extends State<Home> {
     }
   }
 
+  void sendActions() {
+    _sendMessage();
+    loseFocus();
+
+     _scrollController.jumpTo(_scrollController.position.maxScrollExtent + 200);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,86 +161,91 @@ class _HomeState extends State<Home> {
             Expanded(
               child: ListView.separated(
                 shrinkWrap: true,
-                reverse: true,
-                physics: const ScrollPhysics(),
+               // reverse: true,
+                controller: _scrollController,
                 itemCount: questionAnswers.length,
                 itemBuilder: (context, index) {
                   final questionAnswer = questionAnswers[index];
                   final answer = questionAnswer.answer.toString().trim();
 
-                  return Card(
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        ListTile(
-                          contentPadding:
-                              const EdgeInsets.fromLTRB(16, 8, 16, 0),
-                          title: SelectableText(questionAnswer.question,style: const TextStyle(fontSize: 14)),
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 8, 10, 0),
+                        child: Bubble(
+                          nip: BubbleNip.rightTop,
+                          padding: const BubbleEdges.all(12),
+                          margin: const BubbleEdges.only(top: 12),
+                          color: Theme.of(context).cardTheme.surfaceTintColor,
+                          child: SelectableText(questionAnswer.question,
+                              style: const TextStyle(fontSize: 14)),
                         ),
-                        Divider(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          thickness: 3,
-                        ),
-                        if (answer.isEmpty && loading)
-                          const Center(child: SizedBox())
-                        else
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(8, 0, 8, 2),
-                            child: Column(
+                      ),
+                      if (answer.isEmpty && loading)
+                        const Center(child: SizedBox(height: 200,))
+                      else
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                              child: Bubble(
+                                margin: const BubbleEdges.only(top: 12),
+                                padding: const BubbleEdges.all(12),
+                                nip: BubbleNip.leftBottom,
+                                color: Theme.of(context)
+                                    .cardTheme
+                                    .surfaceTintColor!
+                                    .withOpacity(0.4),
+                                child: SelectableText(answer,
+                                    style: const TextStyle(fontSize: 14)),
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                ListTile(
-                                  title: SelectableText(answer,style: const TextStyle(fontSize: 14)),
-                                  contentPadding:
-                                      const EdgeInsets.fromLTRB(16, 8, 16, 6),
-                                  tileColor: Theme.of(context).scaffoldBackgroundColor,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    IconButton(
-                                        icon: const Icon(
-                                          Icons.bookmark_outline,
-                                          size: 20,
-                                        ),
-                                        onPressed: () {
-                                          _saveQuestion(
-                                              questionAnswers[index]
-                                                  .question
-                                                  .toString(),
-                                              questionAnswers[index]
-                                                  .answer
-                                                  .toString());
-                                        }),
-                                    const SizedBox(
-                                      width: 5,
+                                IconButton(
+                                    icon: const Icon(
+                                      Icons.bookmark_outline,
+                                      size: 20,
                                     ),
-                                    IconButton(
-                                        icon: const Icon(
-                                          Icons.share_outlined,
-                                          size: 20,
-                                        ),
-                                        onPressed: () {
-                                          _shareQuestion(
-                                              questionAnswers[index]
-                                                  .question
-                                                  .toString(),
-                                              questionAnswers[index]
-                                                  .answer
-                                                  .toString());
-                                        }),
-                                  ],
+                                    onPressed: () {
+                                      _saveQuestion(
+                                          questionAnswers[index]
+                                              .question
+                                              .toString(),
+                                          questionAnswers[index]
+                                              .answer
+                                              .toString());
+                                    }),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                IconButton(
+                                    icon: const Icon(
+                                      Icons.share_outlined,
+                                      size: 20,
+                                    ),
+                                    onPressed: () {
+                                      _shareQuestion(
+                                          questionAnswers[index]
+                                              .question
+                                              .toString(),
+                                          questionAnswers[index]
+                                              .answer
+                                              .toString());
+                                    }),
+                                const SizedBox(
+                                  width: 5,
                                 ),
                               ],
                             ),
-                          ),
-                      ],
-                    ),
+                          ],
+                        ),
+                    ],
                   );
                 },
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 12,
-                ),
+                separatorBuilder: (context, index) => const Divider(),
               ),
             ),
             Padding(
@@ -243,20 +257,21 @@ class _HomeState extends State<Home> {
                 maxLengthEnforcement: MaxLengthEnforcement.enforced,
                 controller: messageText,
                 textCapitalization: TextCapitalization.sentences,
+                textInputAction: TextInputAction.send,
+                onSubmitted: (_) => {sendActions()},
                 decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
+                    contentPadding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
                     counterText: "",
                     hintText: "Message",
                     focusColor: Theme.of(context).colorScheme.primary,
                     suffixIcon: IconButton(
-                        onPressed: () => {_sendMessage(), loseFocus()},
+                        onPressed: () => {sendActions()},
                         icon: Icon(
                           Icons.send_rounded,
                           color: Theme.of(context).colorScheme.primary,
                         ))),
               ),
             ),
-
           ],
         ),
       ),

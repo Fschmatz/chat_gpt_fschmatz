@@ -98,26 +98,29 @@ ThemeData dark = ThemeData(
         iconColor: const Color(0xFFE2E2E9)),
     inputDecorationTheme: InputDecorationTheme(
         fillColor: const Color(0xFF343038),
-        filled: true,
+       // filled: true,
         focusColor: const Color(0xFFEFADFC),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Color(0xFFEFADFC),
           ),
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(12),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Color(0xFF454349),
           ),
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(12),
         ),
         border: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Color(0xFF454349),
           ),
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(12),
         )),
+    dividerTheme: const DividerThemeData(
+      color: Color(0xFF353339),
+    ),
     bottomSheetTheme:
         const BottomSheetThemeData(modalBackgroundColor: Color(0xFF1C1B1F)),
     navigationBarTheme: const NavigationBarThemeData(

@@ -1,13 +1,14 @@
 class AppDetails{
 
-  static String appVersion = "1.2.0";
+  static String appVersion = "1.2.1";
   static String appName = "ChatGPT Fschmatz";
   static String repositoryLink = "https://github.com/Fschmatz/chat_gpt_fschmatz";
 
   static String changelogs = '''
-1.2.0
+1.2.1
 - Bug fixes
 - UI changes
+- Send with enter
 
 1.1.0
 - Bookmark answer and question  
@@ -17,9 +18,6 @@ class AppDetails{
 1.0.0
 - Technically usable
 - Copy answer or question tapping on the card
-
-0.5.0
-- Add sliver
 
 0.4.0
 - Settings

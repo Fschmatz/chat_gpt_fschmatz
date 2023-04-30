@@ -2,7 +2,7 @@ name: chat_gpt_fschmatz
 description: Flutter project.
 publish_to: 'none'
 
-version: 1.2.0
+version: 1.2.1
 
 environment:
   sdk: '>=2.19.6 <3.0.0'
@@ -22,6 +22,7 @@ dependencies:
   share:
   chat_gpt_flutter: ^1.0.9
   cupertino_icons: ^1.0.2
+  bubble: ^1.2.1
 
 dev_dependencies:
   flutter_test:
