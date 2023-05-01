@@ -32,6 +32,7 @@ class _HomeState extends State<Home> {
   final List<QuestionAnswer> questionAnswers = [];
   StreamSubscription<StreamCompletionResponse>? streamSubscription;
   final ScrollController _scrollController = ScrollController();
+  final List<bool> showOptions = [];
 
   @override
   void initState() {
@@ -51,6 +52,7 @@ class _HomeState extends State<Home> {
       setState(() {
         messageText.clear();
         loading = true;
+        showOptions.add(false);
 
         questionAnswers.add(
           QuestionAnswer(
@@ -81,7 +83,12 @@ class _HomeState extends State<Home> {
         (event) => setState(
           () {
             if (event.streamMessageEnd) {
+
               streamSubscription?.cancel();
+              showOptions[questionAnswers.length - 1] = true;
+              _scrollController
+                  .jumpTo(_scrollController.position.maxScrollExtent + 25);
+
             } else {
               _scrollController
                   .jumpTo(_scrollController.position.maxScrollExtent);
@@ -168,6 +175,7 @@ class _HomeState extends State<Home> {
                 shrinkWrap: true,
                 itemCount: questionAnswers.length,
                 itemBuilder: (context, index) {
+
                   final questionAnswer = questionAnswers[index];
                   final answer = questionAnswer.answer.toString().trim();
 
@@ -184,47 +192,53 @@ class _HomeState extends State<Home> {
                         Column(
                           children: [
                             AnswerBubble(answer: answer),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                IconButton(
-                                    icon: const Icon(
-                                      Icons.bookmark_outline,
-                                      size: 20,
-                                    ),
-                                    onPressed: () {
-                                      _saveQuestion(
-                                          questionAnswers[index]
-                                              .question
-                                              .toString(),
-                                          questionAnswers[index]
-                                              .answer
-                                              .toString());
-                                    }),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                IconButton(
-                                    icon: const Icon(
-                                      Icons.share_outlined,
-                                      size: 20,
-                                    ),
-                                    onPressed: () {
-                                      _shareQuestion(
-                                          questionAnswers[index]
-                                              .question
-                                              .toString(),
-                                          questionAnswers[index]
-                                              .answer
-                                              .toString());
-                                    }),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                              ],
+                            Visibility(
+                              visible: showOptions[index],
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton(
+                                      icon: const Icon(
+                                        Icons.bookmark_outline,
+                                        size: 20,
+                                      ),
+                                      onPressed: () {
+                                        _saveQuestion(
+                                            questionAnswers[index]
+                                                .question
+                                                .toString(),
+                                            questionAnswers[index]
+                                                .answer
+                                                .toString());
+                                      }),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  IconButton(
+                                      icon: const Icon(
+                                        Icons.share_outlined,
+                                        size: 20,
+                                      ),
+                                      onPressed: () {
+                                        _shareQuestion(
+                                            questionAnswers[index]
+                                                .question
+                                                .toString(),
+                                            questionAnswers[index]
+                                                .answer
+                                                .toString());
+                                      }),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
+                      Visibility(
+                        visible: index == (questionAnswers.length - 1),
+                          child: const SizedBox(height: 40,))
                     ],
                   );
                 },
