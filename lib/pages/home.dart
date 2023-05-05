@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
-
-import 'package:bubble/bubble.dart';
 import 'package:chat_gpt_flutter/chat_gpt_flutter.dart';
-import 'package:chat_gpt_fschmatz/pages/settings_page.dart';
+import 'package:chat_gpt_fschmatz/pages/settings/settings_page.dart';
 import 'package:chat_gpt_fschmatz/util/app_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,6 +31,7 @@ class _HomeState extends State<Home> {
   StreamSubscription<StreamCompletionResponse>? streamSubscription;
   final ScrollController _scrollController = ScrollController();
   final List<bool> showOptions = [];
+  bool showLoadingBox = true;
 
   @override
   void initState() {
@@ -83,12 +82,12 @@ class _HomeState extends State<Home> {
         (event) => setState(
           () {
             if (event.streamMessageEnd) {
-
               streamSubscription?.cancel();
               showOptions[questionAnswers.length - 1] = true;
-              _scrollController
-                  .jumpTo(_scrollController.position.maxScrollExtent + 25);
-
+              if (questionAnswers.length != 1) {
+                _scrollController
+                    .jumpTo(_scrollController.position.maxScrollExtent + 25);
+              }
             } else {
               _scrollController
                   .jumpTo(_scrollController.position.maxScrollExtent);
@@ -160,7 +159,7 @@ class _HomeState extends State<Home> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (BuildContext context) => SettingsPage(),
+                      builder: (BuildContext context) => const SettingsPage(),
                     ));
               }),
         ],
@@ -175,7 +174,6 @@ class _HomeState extends State<Home> {
                 shrinkWrap: true,
                 itemCount: questionAnswers.length,
                 itemBuilder: (context, index) {
-
                   final questionAnswer = questionAnswers[index];
                   final answer = questionAnswer.answer.toString().trim();
 
@@ -191,7 +189,10 @@ class _HomeState extends State<Home> {
                       else
                         Column(
                           children: [
-                            AnswerBubble(answer: answer),
+                            AnswerBubble(
+                              answer: answer,
+                              showLoadingBox: !showOptions[index],
+                            ),
                             Visibility(
                               visible: showOptions[index],
                               child: Row(
@@ -199,7 +200,7 @@ class _HomeState extends State<Home> {
                                 children: [
                                   IconButton(
                                       icon: const Icon(
-                                        Icons.bookmark_outline,
+                                        Icons.bookmark_add_outlined,
                                         size: 20,
                                       ),
                                       onPressed: () {
@@ -237,8 +238,10 @@ class _HomeState extends State<Home> {
                           ],
                         ),
                       Visibility(
-                        visible: index == (questionAnswers.length - 1),
-                          child: const SizedBox(height: 40,))
+                          visible: index == (questionAnswers.length - 1),
+                          child: const SizedBox(
+                            height: 40,
+                          ))
                     ],
                   );
                 },

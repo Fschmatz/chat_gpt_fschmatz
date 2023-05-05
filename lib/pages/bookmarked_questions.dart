@@ -1,9 +1,6 @@
 import 'dart:async';
-import 'package:bubble/bubble.dart';
-import 'package:chat_gpt_fschmatz/pages/settings_page.dart';
 import 'package:chat_gpt_fschmatz/widgets/question_bubble.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:share/share.dart';
 import '../db/question_controller.dart';
 import '../db/question_dao.dart';
@@ -71,10 +68,14 @@ class _BookmarkedQuestionsState extends State<BookmarkedQuestions> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           QuestionBubble(
-                              question: questions[index]['question']),
+                            question: questions[index]['question'],
+                          ),
                           Column(
                             children: [
-                              AnswerBubble(answer: questions[index]['answer']),
+                              AnswerBubble(
+                                answer: questions[index]['answer'],
+                                showLoadingBox: false,
+                              ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [

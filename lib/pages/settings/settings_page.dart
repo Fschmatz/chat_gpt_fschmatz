@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../util/app_details.dart';
-import '../util/dialog_select_theme.dart';
+import '../../util/app_details.dart';
+import '../../util/dialog_select_theme.dart';
+import 'app_info_page.dart';
+import 'changelog_page.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
   _SettingsPageState createState() => _SettingsPageState();
 
-  SettingsPage({Key? key}) : super(key: key);
+  const SettingsPage({Key? key}) : super(key: key);
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  _launchGithub() {
-    launchUrl(
-      Uri.parse(AppDetails.repositoryLink),
-      mode: LaunchMode.externalApplication,
-    );
-  }
-
   String getThemeStringFormatted() {
     String theme = EasyDynamicTheme.of(context)
         .themeMode
@@ -70,45 +64,48 @@ class _SettingsPageState extends State<SettingsPage> {
                   }),
               leading: const Icon(Icons.brightness_6_outlined),
               title: const Text(
-                "App Theme",
+                "App theme",
               ),
               subtitle: Text(
                 getThemeStringFormatted(),
               ),
             ),
             ListTile(
-              title: Text("Source Code",
+              title: Text("About",
                   style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                       color: themeColorApp)),
             ),
             ListTile(
+              leading: const Icon(
+                Icons.info_outline,
+              ),
+              title: const Text(
+                "App info",
+              ),
               onTap: () {
-                _launchGithub();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => const AppInfoPage(),
+                    ));
               },
-              leading: const Icon(Icons.open_in_new_outlined),
-              title: const Text("View Source Code on GitHub",
-                  style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      decorationColor: Colors.blue,
-                      color: Colors.blue)),
-            ),
-            ListTile(
-              title: Text("Changelog",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.primary,
-                  )),
             ),
             ListTile(
               leading: const Icon(
                 Icons.article_outlined,
               ),
-              title: Text(
-                AppDetails.changelogs,
+              title: const Text(
+                "Changelog",
               ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => const ChangelogPage(),
+                    ));
+              },
             ),
           ],
         ));

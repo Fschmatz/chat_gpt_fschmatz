@@ -1,15 +1,19 @@
-class AppDetails{
-
-  static String appVersion = "1.2.4";
+class AppDetails {
+  static String appVersion = "1.2.5";
   static String appName = "ChatGPT Fschmatz";
-  static String repositoryLink = "https://github.com/Fschmatz/chat_gpt_fschmatz";
+  static String repositoryLink =
+      "https://github.com/Fschmatz/chat_gpt_fschmatz";
+  static String appQuote =
+      "The purpose of education is to turn mirrors into windows.";
 
-  static String changelogs = '''
-1.2.4
+  static String changelogCurrent = '''  
+1.2.5
 - Bug fixes
 - UI changes
 - Send with enter
+''';
 
+  static String changelogsOld = '''
 1.1.0
 - Bookmark answer and question  
 - Share answer and question
@@ -32,5 +36,4 @@ class AppDetails{
 0.1.0
 - Project start
 ''';
-
 }

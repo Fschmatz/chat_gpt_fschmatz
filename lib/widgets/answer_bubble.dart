@@ -2,8 +2,9 @@ import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
 
 class AnswerBubble extends StatelessWidget {
-  const AnswerBubble({Key? key, required this.answer}) : super(key: key);
+  AnswerBubble({Key? key, required this.answer, required this.showLoadingBox}) : super(key: key);
   final String answer;
+  bool showLoadingBox;
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +20,16 @@ class AnswerBubble extends StatelessWidget {
         color: Theme.of(context)
             .colorScheme
             .secondaryContainer,
-        child: SelectableText(
-            answer,
-            style: const TextStyle(fontSize: 14)),
+        child: Column(
+          children: [
+            SelectableText(
+                answer,
+                style: const TextStyle(fontSize: 14)),
+            Visibility(
+                visible: showLoadingBox,
+                child: const SizedBox(height: 25,))
+          ],
+        ),
       ),
     );
   }
